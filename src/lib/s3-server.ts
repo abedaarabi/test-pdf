@@ -19,11 +19,12 @@ export async function downloadFromS3(file_key: string): Promise<string> {
       };
 
       const obj = await s3.getObject(params);
-      //   const file_name = `/tmp/elliott${Date.now().toString()}.pdf`;
-      const file_name = path.join(
-        "C:\\temp",
-        `elliott${new Date().getTime()}.pdf`
-      );
+      const file_name = `/tmp/elliott${Date.now().toString()}.pdf`;
+
+      // const file_name = path.join(
+      //   "C:\\temp",
+      //   `elliott${new Date().getTime()}.pdf`
+      // );
 
       if (obj.Body instanceof require("stream").Readable) {
         // AWS-SDK v3 has some issues with their typescript definitions, but this works
