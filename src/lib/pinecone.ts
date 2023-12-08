@@ -64,6 +64,7 @@ async function embedDocument(doc: Document) {
       id: hash,
       values: embeddings,
       metadata: {
+        source:"",
         text: doc.metadata.text,
         pageNumber: doc.metadata.pageNumber,
       },
