@@ -7,7 +7,7 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
