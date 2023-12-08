@@ -51,7 +51,7 @@ export async function loadS3IntoPinecone(fileKey: string) {
 
   console.log("inserting vectors into pinecone");
   await namespace.upsert(vectors);
-
+  //
   return documents[0];
 }
 
@@ -64,7 +64,7 @@ async function embedDocument(doc: Document) {
       id: hash,
       values: embeddings,
       metadata: {
-        source:"",
+        source: "",
         text: doc.metadata.text,
         pageNumber: doc.metadata.pageNumber,
       },
