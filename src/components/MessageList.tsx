@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Message } from "ai/react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Bot, User } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -17,9 +17,25 @@ const MessageList = ({ messages, isLoading }: Props) => {
     );
   }
   if (!messages) return <></>;
+
+  // console.log(messages);
+
+  // const hasCodeBlock = messages[1].content.includes("```");
+  // if (hasCodeBlock) {
+  //   // If the content has code block, wrap it in a <pre><code> element
+  //   const codeContent = messages[1].content.replace(
+  //     /```([\s\S]+?)```/g,
+  //     "</p><pre><code>$1</code></pre><p>"
+  //   );
+
+  //   console.log(codeContent);
+  // } else console.log("code not inclouded");
+
   return (
-    <div className="flex flex-col gap-2 px-4 mb-1">
+    <div className="flex flex-col gap-2 px-4 mb-72">
       {messages.map((message) => {
+        console.log(message);
+
         return (
           <div
             key={message.id}
@@ -30,13 +46,27 @@ const MessageList = ({ messages, isLoading }: Props) => {
           >
             <div
               className={cn(
-                "rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10",
+                "rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10 mb-6 text-black",
                 {
-                  "bg-blue-600 text-white": message.role === "user",
+                  // "bg-sky-400 text-white": message.role === "user",
+                  // "bg-gray-400 text-white": message.role === "assistant",
                 }
               )}
             >
-              <p className="text-base">{message.content}</p>
+              {message.role === "assistant" ? (
+                <div className="flex items-center gap-1 ">
+                  <Bot color="#1e293b" />
+                  <p className={"text-black font-medium pt-1"}>
+                    {"ArteliaGPT..."}
+                  </p>
+                </div>
+              ) : (
+                <div className="flex items-center  gap-1 ">
+                  <User color="#1e293b" />
+                  <p className={"text-black font-medium pt-2"}>{"You"}</p>
+                </div>
+              )}
+              <p className="text-lg ">{message.content}</p>
             </div>
           </div>
         );

@@ -3,7 +3,7 @@ import React from "react";
 import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
-import { Send } from "lucide-react";
+import { Send, Sparkles } from "lucide-react";
 import MessageList from "./MessageList";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -22,6 +22,11 @@ const ChatComponent = ({ chatId }: Props) => {
     },
   });
 
+  const focusRef = React.useCallback((inputElement: any) => {
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }, []);
   const { input, handleInputChange, handleSubmit, messages } = useChat({
     api: "/api/chat",
     body: {
@@ -29,6 +34,9 @@ const ChatComponent = ({ chatId }: Props) => {
     },
     initialMessages: data || [],
   });
+
+  console.log({ messages });
+
   React.useEffect(() => {
     const messageContainer = document.getElementById("message-container");
     if (messageContainer) {
@@ -41,29 +49,30 @@ const ChatComponent = ({ chatId }: Props) => {
 
   return (
     <div
-      className="relative max-h-screen overflow-scroll"
+      className="relative w-full h-screen overflow-auto "
       id="message-container"
     >
       {/* header */}
-      <div className="sticky top-0 inset-x-0 p-2 bg-white h-fit">
-        <h3 className="text-xl font-bold">Chat</h3>
+      <div className="sticky top-0 inset-x-0 p-2 h-fit flex gap-1 items-center">
+        <h3 className="text-xl font-bold text-white">
+          Chat With Project Model
+        </h3>
+        <Sparkles className="text-yellow-300" />
       </div>
 
       {/* message list */}
       <MessageList messages={messages} isLoading={isLoading} />
 
-      <form
-        onSubmit={handleSubmit}
-        className="sticky bottom-0 inset-x-0 px-2 py-4 bg-white"
-      >
-        <div className="flex mt-9">
+      <form onSubmit={handleSubmit} className=" bottom-0 inset-x-0 ">
+        <div className="flex fixed bottom-2 w-full items-center justify-center ">
           <Input
             value={input}
             onChange={handleInputChange}
+            ref={focusRef}
             placeholder="Ask any question..."
-            className="w-full"
+            className=" bg-white h-16 text-lg text-black w-[90%] relative rounded-lg"
           />
-          <Button className="bg-blue-600 ml-2">
+          <Button className="bg-blue-600 h-12 absolute  right-[6%]">
             <Send className="h-4 w-4" />
           </Button>
         </div>
