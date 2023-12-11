@@ -8,12 +8,26 @@ const openai = new OpenAIApi(config);
 
 export async function getEmbeddings(text: string) {
   try {
-    const response = await openai.createEmbedding({
-      model: "text-embedding-ada-002",
-      input: text.replace(/\n/g, " "),
-    });
-    const result = await response.json();
-    return result.data[0].embedding as number[];
+    const chunks = [];
+    for (let i = 0; i < text.length; i += 1000) {
+      const chunk = text.substring(i, i + 1000);
+      chunks.push(chunk);
+    }
+
+    const embeddings = [] as number[];
+
+    for (const chunk of chunks) {
+      const response = await openai.createEmbedding({
+        model: "text-embedding-ada-002",
+        input: chunk.replace(/\n/g, " "),
+      });
+      const result = await response.json();
+      result.data.forEach((embed: any) => {
+        embeddings.push(embed.embedding);
+      });
+    }
+
+    return embeddings;
   } catch (error) {
     console.log("error calling openai embeddings api", error);
     throw error;

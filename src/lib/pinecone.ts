@@ -59,10 +59,11 @@ async function embedDocument(doc: Document) {
   try {
     const embeddings = await getEmbeddings(doc.pageContent);
     const hash = md5(doc.pageContent);
+    console.log(embeddings.flat().length);
 
     return {
       id: hash,
-      values: embeddings,
+      values: embeddings.flat(),
       metadata: {
         source: "",
         text: doc.metadata.text,

@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
+import React, { Ref } from "react";
 import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
-import { Send, Sparkles } from "lucide-react";
+import { Send, Sparkles, Loader2, ArrowRightCircle } from "lucide-react";
 import MessageList from "./MessageList";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -12,6 +12,7 @@ import { Message } from "ai";
 type Props = { chatId: number };
 
 const ChatComponent = ({ chatId }: Props) => {
+  const [isInput, setIsInput] = React.useState(false);
   const { data, isLoading } = useQuery({
     queryKey: ["chat", chatId],
     queryFn: async () => {
@@ -22,20 +23,28 @@ const ChatComponent = ({ chatId }: Props) => {
     },
   });
 
-  const focusRef = React.useCallback((inputElement: any) => {
-    if (inputElement) {
-      inputElement.focus();
-    }
-  }, []);
-  const { input, handleInputChange, handleSubmit, messages } = useChat({
+  // const focusRef = React.useCallback((inputElement: any) => {
+  //   if (inputElement) {
+  //     inputElement.focus();
+  //   }
+  // }, []);
+
+  const inputRef = React.useRef<any>();
+
+  const {
+    input,
+    handleInputChange,
+    handleSubmit,
+    messages,
+    stop,
+    isLoading: msgIsloading,
+  } = useChat({
     api: "/api/chat",
     body: {
       chatId,
     },
     initialMessages: data || [],
   });
-
-  console.log({ messages });
 
   React.useEffect(() => {
     const messageContainer = document.getElementById("message-container");
@@ -47,6 +56,10 @@ const ChatComponent = ({ chatId }: Props) => {
     }
   }, [messages]);
 
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <div
       className="relative w-full h-screen overflow-auto "
@@ -54,27 +67,43 @@ const ChatComponent = ({ chatId }: Props) => {
     >
       {/* header */}
       <div className="sticky top-0 inset-x-0 p-2 h-fit flex gap-1 items-center">
-        <h3 className="text-xl font-bold text-white">
-          Chat With Project Model
-        </h3>
+        {/* <h3 className="text-xl font-bold text-[#289085]">ArteliaGPT</h3> */}
         <Sparkles className="text-yellow-300" />
       </div>
 
       {/* message list */}
-      <MessageList messages={messages} isLoading={isLoading} />
+      <MessageList
+        messages={messages}
+        isLoading={isLoading}
+        msgIsloading={msgIsloading}
+      />
 
       <form onSubmit={handleSubmit} className=" bottom-0 inset-x-0 ">
         <div className="flex fixed bottom-2 w-full items-center justify-center ">
           <Input
             value={input}
             onChange={handleInputChange}
-            ref={focusRef}
+            ref={inputRef}
             placeholder="Ask any question..."
-            className=" bg-white h-16 text-lg text-black w-[90%] relative rounded-lg"
+            className=" bg-white h-24 text-base text-black w-[90%] relative rounded-lg bg-opacity-5"
           />
-          <Button className="bg-blue-600 h-12 absolute  right-[6%]">
-            <Send className="h-4 w-4" />
-          </Button>
+          {!msgIsloading ? (
+            <Button
+              className="bg-slate-900 h-10 absolute  mt-6 right-[6%] "
+              disabled={inputRef.current?.value === ""}
+            >
+              Send
+              <ArrowRightCircle className="h-4 w-4 ml-2" />
+            </Button>
+          ) : (
+            <Button
+              className="bg-slate-900 h-10 absolute mt-6 right-[6%]"
+              onClick={() => stop()}
+            >
+              Stop generation
+              <Loader2 className="h-4 w-4 ml-2" />
+            </Button>
+          )}
         </div>
       </form>
     </div>
