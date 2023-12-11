@@ -79,13 +79,13 @@ const ChatComponent = ({ chatId }: Props) => {
       />
 
       <form onSubmit={handleSubmit} className=" bottom-0 inset-x-0 ">
-        <div className="flex fixed bottom-2 w-full items-center justify-center ">
+        <div className="flex fixed bottom-2 w-full items-center justify-center">
           <Input
             value={input}
             onChange={handleInputChange}
             ref={inputRef}
             placeholder="Ask any question..."
-            className=" bg-white h-24 text-base text-black w-[90%] relative rounded-lg bg-opacity-5"
+            className=" bg-white h-24 text-base text-black w-[90%] relative rounded-lg "
           />
           {!msgIsloading ? (
             <Button

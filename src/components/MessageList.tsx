@@ -39,7 +39,8 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
             key={message.id}
             className={cn("flex", {
               "justify-end pl-10": message.role === "user",
-              "justify-start pr-10": message.role === "assistant",
+              "justify-start pr-10":
+                message.role === "system" || message.role === "assistant",
             })}
           >
             <div
@@ -47,14 +48,15 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
                 "rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10 mb-2 text-black",
                 {
                   "bg-white text-stone-950": message.role === "user",
-                  "bg-slate-500 text-white": message.role === "assistant",
+                  "bg-slate-500 text-white":
+                    message.role === "system" || message.role === "assistant",
                 }
               )}
             >
-              {!message.content && message.role === "assistant" && (
+              {!message.content && message.role === "system" && (
                 <Loader2 className="w-6 h-6 animate-spin" />
               )}
-              {message.role === "assistant" ? (
+              {message.role === "system" || message.role === "assistant" ? (
                 <div className="flex items-center gap-1 ">
                   <Bot color="white" />
                   <p className={"text-white font-base pt-1"}>{"ArteliaGPT"}</p>
