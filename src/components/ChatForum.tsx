@@ -18,7 +18,7 @@ const ChatForum = ({
   }, []);
 
   return (
-    <div className="rounded-lg w-[60%] m-auto relative">
+    <div className="rounded-lg w-[60%] m-auto relative max-sm:min-w-[90%]">
       <form
         onSubmit={handleSubmit}
         className="flex  items-center justify-center gap-2"
@@ -28,18 +28,18 @@ const ChatForum = ({
           onChange={handleInputChange}
           ref={inputRef}
           placeholder="Ask any question..."
-          className=" bg-white h-12 text-base text-black w-[80%] "
+          className=" bg-white h-12 text-base text-black w-[80%]  max-sm:min-w-[100%]"
         />
         {!msgIsloading ? (
           <Button
-            className="bg-slate-900 absolute right-[11%]"
+            className="bg-slate-900 absolute right-[12%]  max-sm:right-[1%]"
             disabled={inputRef.current?.value === ""}
           >
             <ArrowUpCircle className="" />
           </Button>
         ) : (
           <Button
-            className="bg-slate-900 absolute right-[12%]"
+            className="bg-slate-900 absolute right-[12%] max-sm:right-[1%]"
             onClick={() => stop()}
           >
             Stop

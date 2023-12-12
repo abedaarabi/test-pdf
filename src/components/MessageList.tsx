@@ -21,7 +21,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
   if (!messages) return <></>;
 
   return (
-    <div className="flex-col gap-2 px-4 mb-6 mt-6 w-[80%] m-auto ">
+    <div className="flex-col gap-2 px-4 mb-6 mt-6 w-[80%] m-auto max-sm:min-w-[100%]">
       {messages.map((message) => {
         // const hasCodeBlock = message.content.includes("```");
         // if (hasCodeBlock) {
@@ -47,7 +47,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
             }
           >
             <div
-              className="max-w-[80%] m-auto"
+              className="max-w-[80%] m-auto max-sm:min-w-[100%]"
               // className={cn(
               //   " px-3 text-sm py-1  ring-1 ring-gray-900/10 mb-2 text-black max-w-[80%]",
               //   {
@@ -63,7 +63,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               {message.role === "system" || message.role === "assistant" ? (
                 <div className="flex items-center gap-1 ">
                   <Bot color="green" size={32} />
-                  <p className={"text-green-500 font-bold pt-2"}>
+                  <p className={"text-green-500 font-bold pt-2 "}>
                     {"ArteliaGPT"}
                   </p>
                 </div>
@@ -77,7 +77,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               {/* <p className="text-sm ">{message.content}</p> */}
               <div
                 dangerouslySetInnerHTML={{ __html: message.content }}
-                className="pl-7 font-mono mb-4"
+                className="pl-7 font-mono mb-4 max-sm:text-base"
               />
               {/* {codeBlock && (
                 <CopyBlock
