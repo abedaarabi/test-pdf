@@ -22,9 +22,11 @@ export async function getEmbeddings(text: string) {
         input: chunk.replace(/\n/g, " "),
       });
       const result = await response.json();
-      result.data.forEach((embed: any) => {
-        embeddings.push(embed.embedding);
-      });
+      if (result) {
+        result.data.forEach((embed: any) => {
+          embeddings.push(embed.embedding);
+        });
+      }
     }
 
     return embeddings;

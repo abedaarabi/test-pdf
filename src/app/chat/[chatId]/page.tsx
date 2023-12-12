@@ -30,16 +30,16 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
   //   const isPro = await checkSubscription();
   return (
-    <div className="flex w-full max-h-screen  bg-slate-200">
+    <div className="flex w-full max-h-screen ">
       {/* chat sidebar */}
-      <div className="flex-[1] max-w-xs">
+      <div className="flex-[1] max-w-xs hidden sm:block">
         <ChatSideBar chats={_chats} chatId={parseInt(chatId)} />
       </div>
 
-      <div className="flex items-center justify-center w-full h-full m-auto overflow-hidden">
-        <div className="w-4/5 h-[90vh] text-gray-300 rounded-lg drop-shadow-xl bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400">
-          <ChatComponent chatId={parseInt(chatId)} />
-        </div>
+      <div className="flex items-center justify-center w-full h-full m-auto">
+        {/* <div className="w-4/5 h-[90vh] text-gray-300 rounded-lg drop-shadow-xl bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400"> */}
+        <ChatComponent chatId={parseInt(chatId)} />
+        {/* </div> */}
       </div>
 
       {/* <div className="max-h-screen p-4 oveflow-scroll flex-[5]">

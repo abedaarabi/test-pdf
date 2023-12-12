@@ -21,7 +21,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
   if (!messages) return <></>;
 
   return (
-    <div className="flex flex-col gap-2 px-4 mb-72">
+    <div className="flex-col gap-2 px-4 mb-6 mt-6 w-[80%] m-auto ">
       {messages.map((message) => {
         // const hasCodeBlock = message.content.includes("```");
         // if (hasCodeBlock) {
@@ -37,38 +37,48 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
         return (
           <div
             key={message.id}
-            className={cn("flex", {
-              "justify-end pl-10": message.role === "user",
-              "justify-start pr-10":
-                message.role === "system" || message.role === "assistant",
-            })}
+            className={
+              // (cn("flex", {
+              //   "justify-end pl-10": message.role === "user",
+              //   "justify-start pr-10":
+              //     message.role === "system" || message.role === "assistant",
+              // }),
+              "mb-4 "
+            }
           >
             <div
-              className={cn(
-                "rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10 mb-2 text-black",
-                {
-                  "bg-white text-stone-950": message.role === "user",
-                  "bg-slate-500 text-white":
-                    message.role === "system" || message.role === "assistant",
-                }
-              )}
+              className="max-w-[80%] m-auto"
+              // className={cn(
+              //   " px-3 text-sm py-1  ring-1 ring-gray-900/10 mb-2 text-black max-w-[80%]",
+              //   {
+              //     "bg-white text-stone-950": message.role === "user",
+              //     "bg-slate-500 text-white":
+              //       message.role === "system" || message.role === "assistant",
+              //   }
+              // )}
             >
               {!message.content && message.role === "system" && (
                 <Loader2 className="w-6 h-6 animate-spin" />
               )}
               {message.role === "system" || message.role === "assistant" ? (
                 <div className="flex items-center gap-1 ">
-                  <Bot color="white" />
-                  <p className={"text-white font-base pt-1"}>{"ArteliaGPT"}</p>
+                  <Bot color="green" size={32} />
+                  <p className={"text-green-500 font-bold pt-2"}>
+                    {"ArteliaGPT"}
+                  </p>
                 </div>
               ) : (
                 <div className="flex items-center   ">
-                  <User color="#1e293b" />
-                  <p className={"text-slate-800 font-base pt-1"}>{"You"}</p>
+                  <User color="green" size={30} />
+                  <p className={"text-green-500 font-bold pt-2"}>{"You"}</p>
                 </div>
               )}
 
-              <p className="text-sm ">{message.content}</p>
+              {/* <p className="text-sm ">{message.content}</p> */}
+              <div
+                dangerouslySetInnerHTML={{ __html: message.content }}
+                className="pl-7 font-mono mb-4"
+              />
               {/* {codeBlock && (
                 <CopyBlock
                   text={codeBlock}

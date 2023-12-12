@@ -8,6 +8,8 @@ import MessageList from "./MessageList";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Message } from "ai";
+import ChatForum from "./ChatForum";
+import toast from "react-hot-toast";
 
 type Props = { chatId: number };
 
@@ -28,8 +30,6 @@ const ChatComponent = ({ chatId }: Props) => {
   //     inputElement.focus();
   //   }
   // }, []);
-
-  const inputRef = React.useRef<any>();
 
   const {
     input,
@@ -56,57 +56,34 @@ const ChatComponent = ({ chatId }: Props) => {
     }
   }, [messages]);
 
-  React.useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
   return (
-    <div
-      className="relative w-full h-screen overflow-auto "
-      id="message-container"
-    >
-      {/* header */}
-      <div className="sticky top-0 inset-x-0 p-2 h-fit flex gap-1 items-center">
-        {/* <h3 className="text-xl font-bold text-[#289085]">ArteliaGPT</h3> */}
-        <Sparkles className="text-yellow-300" />
-      </div>
-
-      {/* message list */}
-      <MessageList
-        messages={messages}
-        isLoading={isLoading}
-        msgIsloading={msgIsloading}
-      />
-
-      <form onSubmit={handleSubmit} className=" bottom-0 inset-x-0 ">
-        <div className="flex fixed bottom-2 w-full items-center justify-center">
-          <Input
-            value={input}
-            onChange={handleInputChange}
-            ref={inputRef}
-            placeholder="Ask any question..."
-            className=" bg-white h-24 text-base text-black w-[90%] relative rounded-lg "
-          />
-          {!msgIsloading ? (
-            <Button
-              className="bg-slate-900 h-10 absolute  mt-6 right-[6%] "
-              disabled={inputRef.current?.value === ""}
-            >
-              Send
-              <ArrowRightCircle className="h-4 w-4 ml-2" />
-            </Button>
-          ) : (
-            <Button
-              className="bg-slate-900 h-10 absolute mt-6 right-[6%]"
-              onClick={() => stop()}
-            >
-              Stop generation
-              <Loader2 className="h-4 w-4 ml-2" />
-            </Button>
-          )}
+    <>
+      <div className="flex-col h-screen w-full">
+        {/* header */}
+        <div className="sticky top-0 inset-x-0 p-2 bg-teal-600 flex gap-1 items-center h-[5%]">
+          <p className="text-base font-mono font-bold text-white ">
+            ArteliaGPT..
+          </p>
+          <Sparkles className="text-yellow-300" />
         </div>
-      </form>
-    </div>
+        <div className="m-auto  h-[80%] overflow-auto" id="message-container">
+          {/* message list */}
+          <MessageList
+            messages={messages}
+            isLoading={isLoading}
+            msgIsloading={msgIsloading}
+          />
+        </div>
+        <div className="bg-[#eaeaeb] h-[15%] flex items-center">
+          <ChatForum
+            handleSubmit={handleSubmit}
+            input={input}
+            handleInputChange={handleInputChange}
+            msgIsloading={msgIsloading}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 
