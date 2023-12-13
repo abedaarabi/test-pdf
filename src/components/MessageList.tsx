@@ -101,24 +101,24 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
                 // eslint-disable-next-line
-                children={message.content}
+                // children={message.content}
                 components={{
                   code(props) {
-                    const { children, className, node, ...rest } = props;
+                    const { className, node, ...rest } = props;
                     const match = /language-(\w+)/.exec(className || "");
                     return match ? (
                       //@ts-ignore
                       <SyntaxHighlighter
                         {...rest}
                         PreTag="div"
-                        children={String(children).replace(/\n$/, "")}
+                        children={String(message.content).replace(/\n$/, "")}
                         language={match[1]}
                         style={a11yDark}
                         showLineNumbers
                       />
                     ) : (
                       <code {...rest} className={className}>
-                        {children}
+                        {message.content}
                       </code>
                     );
                   },
