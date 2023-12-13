@@ -1,3 +1,5 @@
+// eslint-disable-file no-use-before-define
+
 import { cn } from "@/lib/utils";
 import { Message } from "ai/react";
 import { Loader2, Bot, User } from "lucide-react";
