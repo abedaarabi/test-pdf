@@ -11,6 +11,7 @@ const ChatForum = ({
   input,
   handleInputChange,
   msgIsloading,
+  stop,
 }: any) => {
   const inputRef = React.useRef<any>();
   React.useEffect(() => {
@@ -43,7 +44,7 @@ const ChatForum = ({
             onClick={() => stop()}
           >
             Stop
-            <Loader className="h-4 w-4 ml-2" />
+            <Loader2 className="h-4 w-4 ml-2 animate-spin" />
           </Button>
         )}
       </form>

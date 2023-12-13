@@ -2,7 +2,15 @@ import { cn } from "@/lib/utils";
 import { Message } from "ai/react";
 import { Loader2, Bot, User } from "lucide-react";
 import React from "react";
-import { CopyBlock } from "react-code-blocks";
+
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import "katex/dist/katex.min.css";
 type Props = {
   isLoading: boolean;
   msgIsloading: boolean;
@@ -75,17 +83,44 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               )}
 
               {/* <p className="text-sm ">{message.content}</p> */}
-              <div
+              {/* <div
                 dangerouslySetInnerHTML={{ __html: message.content }}
                 className="pl-7 font-mono mb-4 max-sm:text-base"
+              /> */}
+              {/* <Markdown
+                rehypePlugins={[rehypeRaw, remarkGfm]}
+                className="pl-7 font-mono mb-4 max-sm:text-base"
+              >
+                {message.content}
+              </Markdown> */}
+
+              <Markdown
+                className="pl-8 font-mono mb-4 max-sm:text-base"
+                rehypePlugins={[rehypeRaw, rehypeKatex]}
+                remarkPlugins={[remarkGfm, remarkMath]}
+                children={message.content}
+                components={{
+                  code(props) {
+                    const { children, className, node, ...rest } = props;
+                    const match = /language-(\w+)/.exec(className || "");
+                    return match ? (
+                      //@ts-ignore
+                      <SyntaxHighlighter
+                        {...rest}
+                        PreTag="div"
+                        children={String(children).replace(/\n$/, "")}
+                        language={match[1]}
+                        style={a11yDark}
+                        showLineNumbers
+                      />
+                    ) : (
+                      <code {...rest} className={className}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
               />
-              {/* {codeBlock && (
-                <CopyBlock
-                  text={codeBlock}
-                  language={"javascript"}
-                  showLineNumbers={true}
-                />
-              )} */}
             </div>
           </div>
         );
