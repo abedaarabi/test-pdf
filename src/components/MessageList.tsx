@@ -95,35 +95,62 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               >
                 {message.content}
               </Markdown> */}
-
               <Markdown
                 className="pl-8 font-mono mb-4 max-sm:text-base"
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
-                // eslint-disable-next-line
-                // children={message.content}
                 components={{
                   code(props) {
-                    const { className, node, ...rest } = props;
+                    const { children, className, node, ...rest } = props;
                     const match = /language-(\w+)/.exec(className || "");
                     return match ? (
                       //@ts-ignore
                       <SyntaxHighlighter
                         {...rest}
                         PreTag="div"
-                        children={String(message.content).replace(/\n$/, "")}
+                        children={String(children).replace(/\n$/, "")}
                         language={match[1]}
                         style={a11yDark}
                         showLineNumbers
                       />
                     ) : (
                       <code {...rest} className={className}>
-                        {message.content}
+                        {children}
                       </code>
                     );
                   },
                 }}
-              />
+              >
+                {message.content}
+              </Markdown>
+
+              {/* <Markdown
+                className="pl-8 font-mono mb-4 max-sm:text-base"
+                rehypePlugins={[rehypeRaw, rehypeKatex]}
+                remarkPlugins={[remarkGfm, remarkMath]}
+                children={message.content}
+                components={{
+                  code(props) {
+                    const { children, className, node, ...rest } = props;
+                    const match = /language-(\w+)/.exec(className || "");
+                    return match ? (
+                      //@ts-ignore
+                      <SyntaxHighlighter
+                        {...rest}
+                        PreTag="div"
+                        children={String(children).replace(/\n$/, "")}
+                        language={match[1]}
+                        style={a11yDark}
+                        showLineNumbers
+                      />
+                    ) : (
+                      <code {...rest} className={className}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
+              /> */}
             </div>
           </div>
         );
