@@ -100,6 +100,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
                 className="pl-8 font-mono mb-4 max-sm:text-base"
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
+                // eslint-disable-next-line
                 children={message.content}
                 components={{
                   code(props) {
