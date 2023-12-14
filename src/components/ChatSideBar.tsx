@@ -26,7 +26,7 @@ const ChatSideBar = ({ chats, chatId }: Props) => {
         "relative w-full h-full p-4 text-gray-300 bg-teal-600 transition-all duration-200  ease-in-out ",
 
         {
-          "w-[30px] m-auto": isHideSideBar,
+          "w-[40px] m-auto": isHideSideBar,
         }
       )}
     >
