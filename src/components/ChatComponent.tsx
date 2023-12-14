@@ -3,7 +3,13 @@ import React, { Ref } from "react";
 import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
-import { Send, Sparkles, Eraser } from "lucide-react";
+import {
+  Send,
+  Sparkles,
+  Eraser,
+  ArrowLeftCircle,
+  ArrowRightCircle,
+} from "lucide-react";
 import MessageList from "./MessageList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -74,7 +80,8 @@ const ChatComponent = ({ chatId }: Props) => {
       <div className="flex-col h-screen w-full">
         {/* header */}
         <div className="sticky top-0 inset-x-0 p-2 bg-teal-600 flex gap-1 items-center h-[7%] justify-between  w-full">
-          <div className="flex ml-6">
+          <div className="flex ml-6 items-center">
+         
             <p className="text-base font-mono font-bold text-white ">
               ArteliaGPT..
             </p>

@@ -4,6 +4,8 @@ import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
 import { Send, Sparkles, Loader2, ArrowUpCircle, Loader } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+
 type Props = {};
 
 const ChatForum = ({
@@ -24,7 +26,7 @@ const ChatForum = ({
         onSubmit={handleSubmit}
         className="flex  items-center justify-center gap-2"
       >
-        <Input
+        <Textarea
           value={input}
           onChange={handleInputChange}
           ref={inputRef}
