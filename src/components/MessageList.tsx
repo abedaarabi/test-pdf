@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Message } from "ai/react";
 import { Loader2, Bot, User } from "lucide-react";
 import React from "react";
-
+import ReactMarkdown from "react-markdown";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
@@ -97,20 +97,24 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               </Markdown> */}
 
               <Markdown
-                className="pl-8 font-mono mb-4 max-sm:text-base"
+                className="pl-8 font-mono mb-4 max-sm:text-base prose text-lg"
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
                 // eslint-disable-next-line react/no-children-prop
                 children={message.content}
                 components={{
+                  a: LinkRenderer,
+
                   code(props) {
                     const { children, className, node, ...rest } = props;
+
                     const match = /language-(\w+)/.exec(className || "");
                     return match ? (
                       //@ts-ignore
                       <SyntaxHighlighter
                         {...rest}
                         PreTag="div"
+                        // eslint-disable-next-line react/no-children-prop
                         children={String(children).replace(/\n$/, "")}
                         language={match[1]}
                         style={a11yDark}
@@ -131,5 +135,18 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
     </div>
   );
 };
+function LinkRenderer(props: any) {
+  console.log({ props });
+  return (
+    <a
+      href={props.href}
+      target="_blank"
+      rel="noreferrer"
+      className="text-blue-500 underline font-sans"
+    >
+      {props.href}
+    </a>
+  );
+}
 
 export default MessageList;

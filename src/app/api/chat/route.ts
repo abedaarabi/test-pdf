@@ -46,8 +46,9 @@ export async function POST(req: Request) {
     };
 
     const response = await openai.createChatCompletion({
-      // model: "gpt-4",
-      model: "gpt-3.5-turbo",
+      temperature: 0.4, // increase temperature to get more creative answers
+      model: "gpt-3.5-turbo", //change this to gpt-4 if you have access
+      // model: "gpt-3.5-turbo",
       messages: [
         prompt,
         ...messages.filter((message: Message) => message.role === "user"),
