@@ -97,7 +97,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               </Markdown> */}
 
               <Markdown
-                className="pl-8 font-mono mb-4 max-sm:text-base prose text-lg"
+                className="pl-8 font-mono mb-4 max-sm:text-base prose"
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
                 // eslint-disable-next-line react/no-children-prop
