@@ -81,9 +81,8 @@ const ChatComponent = ({ chatId }: Props) => {
         {/* header */}
         <div className="sticky top-0 inset-x-0 p-2 bg-teal-600 flex gap-1 items-center h-[7%] justify-between  w-full">
           <div className="flex ml-6 items-center">
-         
             <p className="text-base font-mono font-bold text-white ">
-              ArteliaGPT..
+              AbedGPT..
             </p>
             <Sparkles className="text-yellow-300" />
           </div>

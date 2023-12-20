@@ -74,7 +74,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
                 <div className="flex items-center gap-1 ">
                   <Bot color="green" size={32} />
                   <p className={"text-green-500 font-bold pt-2 "}>
-                    {"ArteliaGPT"}
+                    {"AbedGPT"}
                   </p>
                 </div>
               ) : (
