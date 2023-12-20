@@ -20,6 +20,21 @@ const ChatForum = ({
     inputRef.current.focus();
   }, []);
 
+  const handleKeyDown = (e: any) => {
+    // Check if the pressed key is Enter (key code 13)
+    if (e.key === "Enter") {
+      // Prevent the default behavior of the Enter key (form submission)
+      e.preventDefault();
+      // Call the submit function when Enter is pressed
+      handleSubmit(e);
+    } else if (e.key === "Escape") {
+      cancelAction();
+    }
+  };
+  const cancelAction = () => {
+    stop();
+  };
+
   return (
     <div className="rounded-lg w-[60%] m-auto relative max-sm:min-w-[90%]">
       <form
@@ -27,6 +42,7 @@ const ChatForum = ({
         className="flex  items-center justify-center gap-2"
       >
         <Textarea
+          onKeyDown={handleKeyDown}
           value={input}
           onChange={handleInputChange}
           ref={inputRef}
@@ -43,7 +59,7 @@ const ChatForum = ({
         ) : (
           <Button
             className="bg-slate-900 absolute right-[12%] max-sm:right-[1%]"
-            onClick={() => stop()}
+            onClick={cancelAction}
           >
             Stop
             <Loader2 className="h-4 w-4 ml-2 animate-spin" />
