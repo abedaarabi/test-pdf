@@ -88,7 +88,7 @@ const ChatComponent = ({ chatId }: Props) => {
           <div className="">
             <ModeToggle />
             <Button
-              className="mr-6 ml-4"
+              className="mr-4 ml-4"
               variant="default"
               size="icon"
               onClick={() => mutate()}

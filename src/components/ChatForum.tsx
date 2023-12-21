@@ -36,10 +36,10 @@ const ChatForum = ({
   };
 
   return (
-    <div className="rounded-lg w-[60%] m-auto relative max-sm:min-w-[90%]">
+    <div className="w-[50%] m-auto relative max-sm:min-w-[80%]">
       <form
         onSubmit={handleSubmit}
-        className="flex  items-center justify-center gap-2"
+        className="flex  items-center justify-evenly "
       >
         <Textarea
           onKeyDown={handleKeyDown}
@@ -47,11 +47,11 @@ const ChatForum = ({
           onChange={handleInputChange}
           ref={inputRef}
           placeholder="Ask any question..."
-          className="h-12 text-base  w-[80%]  max-sm:min-w-[100%]"
+          className="h-12 mr-2 "
         />
         {!msgIsloading ? (
           <Button
-            className=" absolute right-[12%]  max-sm:right-[1%]"
+            className="    max-sm:right-[1%]"
             disabled={inputRef.current?.value === ""}
             variant={"default"}
           >
@@ -59,7 +59,7 @@ const ChatForum = ({
           </Button>
         ) : (
           <Button
-            className="absolute right-[12%] max-sm:right-[1%]"
+            className=" max-sm:right-[1%]"
             onClick={cancelAction}
             variant={"default"}
           >
