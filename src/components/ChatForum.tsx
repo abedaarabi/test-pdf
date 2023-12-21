@@ -47,22 +47,24 @@ const ChatForum = ({
           onChange={handleInputChange}
           ref={inputRef}
           placeholder="Ask any question..."
-          className=" bg-white h-12 text-base text-black w-[80%]  max-sm:min-w-[100%]"
+          className="h-12 text-base  w-[80%]  max-sm:min-w-[100%]"
         />
         {!msgIsloading ? (
           <Button
-            className="bg-slate-900 absolute right-[12%]  max-sm:right-[1%]"
+            className=" absolute right-[12%]  max-sm:right-[1%]"
             disabled={inputRef.current?.value === ""}
+            variant={"default"}
           >
-            <ArrowUpCircle className="" />
+            <ArrowUpCircle className="" color="#ffff" />
           </Button>
         ) : (
           <Button
-            className="bg-slate-900 absolute right-[12%] max-sm:right-[1%]"
+            className="absolute right-[12%] max-sm:right-[1%]"
             onClick={cancelAction}
+            variant={"default"}
           >
             Stop
-            <Loader2 className="h-4 w-4 ml-2 animate-spin" />
+            <Loader2 className="h-4 w-4 ml-2 animate-spin" color="#ffff" />
           </Button>
         )}
       </form>

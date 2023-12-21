@@ -24,7 +24,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
   if (isLoading) {
     return (
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Loader2 className="w-6 h-6 animate-spin text-zinc-900" />
+        <Loader2 className="w-6 h-6 animate-spin " />
       </div>
     );
   }
@@ -72,15 +72,13 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               )}
               {message.role === "system" || message.role === "assistant" ? (
                 <div className="flex items-center gap-1 ">
-                  <Bot color="green" size={32} />
-                  <p className={"text-green-500 font-bold pt-2 "}>
-                    {"AbedGPT"}
-                  </p>
+                  <Bot size={32} />
+                  <p className={" font-bold pt-2 "}>{"AbedGPT"}</p>
                 </div>
               ) : (
                 <div className="flex items-center   ">
-                  <User color="green" size={30} />
-                  <p className={"text-green-500 font-bold pt-2"}>{"You"}</p>
+                  <User size={30} />
+                  <p className={" font-bold pt-2"}>{"You"}</p>
                 </div>
               )}
 
@@ -97,7 +95,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               </Markdown> */}
 
               <Markdown
-                className="pl-8 font-mono mb-4 max-sm:text-base prose"
+                className="pl-8  mb-4  prose dark:prose-invert"
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
                 // eslint-disable-next-line react/no-children-prop
@@ -142,7 +140,7 @@ function LinkRenderer(props: any) {
       href={props.href}
       target="_blank"
       rel="noreferrer"
-      className="text-blue-500 underline font-sans"
+      className=" underline font-sans"
     >
       {props.href}
     </a>
