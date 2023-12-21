@@ -73,12 +73,14 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               {message.role === "system" || message.role === "assistant" ? (
                 <div className="flex items-center gap-1 ">
                   <Bot size={32} />
-                  <p className={" font-bold pt-2 "}>{"AbedGPT"}</p>
+                  <p className={" font-bold pt-2 max-sm:text-sm"}>
+                    {"AbedGPT"}
+                  </p>
                 </div>
               ) : (
                 <div className="flex items-center   ">
                   <User size={30} />
-                  <p className={" font-bold pt-2"}>{"You"}</p>
+                  <p className={" font-bold pt-2 max-sm:text-sm"}>{"You"}</p>
                 </div>
               )}
 
@@ -95,7 +97,7 @@ const MessageList = ({ messages, isLoading, msgIsloading }: Props) => {
               </Markdown> */}
 
               <Markdown
-                className="pl-8  mb-4  prose dark:prose-invert"
+                className="pl-8  mb-4 text-base max-sm:text-sm  prose dark:prose-invert"
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
                 // eslint-disable-next-line react/no-children-prop

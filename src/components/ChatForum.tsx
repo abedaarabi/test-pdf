@@ -36,22 +36,19 @@ const ChatForum = ({
   };
 
   return (
-    <div className="w-[50%] m-auto relative max-sm:min-w-[80%]">
-      <form
-        onSubmit={handleSubmit}
-        className="flex  items-center justify-evenly "
-      >
+    <div className="w-[50%] m-auto relative max-sm:min-w-[100%] px-4">
+      <form onSubmit={handleSubmit} className="flex  items-center ">
         <Textarea
           onKeyDown={handleKeyDown}
           value={input}
           onChange={handleInputChange}
           ref={inputRef}
           placeholder="Ask any question..."
-          className="h-12 mr-2 "
+          className="h-12 mr-2 w-[100%]"
         />
         {!msgIsloading ? (
           <Button
-            className="    max-sm:right-[1%]"
+            className=""
             disabled={inputRef.current?.value === ""}
             variant={"default"}
           >
